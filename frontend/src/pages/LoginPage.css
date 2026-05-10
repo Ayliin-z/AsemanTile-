@@ -1,0 +1,459 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+  direction: rtl;
+  background: transparent;
+}
+
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 32px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #e3dede;
+}
+
+.login-box h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  color: #13314c;
+  text-align: center;
+  font-size: 28px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #c0c8cc;
+  border-radius: 16px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: #1c7385;
+  box-shadow: 0 0 0 3px rgba(28, 115, 133, 0.1);
+}
+
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  background: #1c7385;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.login-box button:hover {
+  background: #0f5a6b;
+}
+
+.error {
+  color: #a70023;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #7c8788;
+}
+
+.register-link a {
+  color: #1c7385;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.hint {
+  text-align: center;
+  margin-top: 15px;
+  color: #a0a8ac;
+  font-size: 13px;
+}
+
+/* ========== اسلایدر نظرات مشتریان ========== */
+.testimonials-section {
+  width: 90%;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.testimonials-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  margin-top: 30px;
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e3dede;
+  transition: transform 0.3s ease;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial-avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #ffd800;
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-stars {
+  font-size: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2c3e4e;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testimonial-author strong {
+  display: block;
+  color: #13314c;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.testimonial-author span {
+  font-size: 12px;
+  color: #7c8788;
+}
+
+.testimonial-nav {
+  background: #13314c;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-nav:hover {
+  background: #1c7385;
+  transform: scale(1.05);
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.testimonial-dots .dot {
+  width: 10px;
+  height: 10px;
+  background: #c0c8cc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.testimonial-dots .dot.active {
+  width: 28px;
+  background: #1c7385;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .testimonials-track {
+    gap: 15px;
+  }
+  .testimonial-card {
+    padding: 18px;
+  }
+  .testimonial-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  .testimonial-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .testimonials-slider {
+    gap: 10px;
+  }
+  .testimonial-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .testimonial-stars {
+    font-size: 16px;
+  }
+}
+
+/* ========== مودال اطلاع‌رسانی (قدیمی - اگر استفاده نمی‌شود می‌توان حذف کرد) ========== */
+.info-modal {
+  background: white;
+  border-radius: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 25px 40px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+.info-modal-content {
+  padding: 10px;
+}
+
+.info-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.info-modal h3 {
+  margin: 0 0 12px;
+  color: #13314c;
+  font-size: 22px;
+}
+
+.info-modal p {
+  margin: 0 0 20px;
+  color: #4a5c64;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.info-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.info-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.call-btn {
+  background: #1c7385;
+  color: white;
+}
+
+.call-btn:hover {
+  background: #0f5a6b;
+}
+
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  opacity: 0.9;
+}
+
+.info-close-btn {
+  background: none;
+  border: 1px solid #c0c8cc;
+  padding: 8px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #7c8788;
+  transition: all 0.2s;
+}
+
+.info-close-btn:hover {
+  background: #f4f2f0;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== کانتینر دکمه شناور + بالون (نسخه نهایی) ========== */
+.floating-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* بالون اطلاع‌رسانی (بدون دکمه) */
+.info-bubble {
+  background: white;
+  border-radius: 20px;
+  width: 260px;
+  margin-bottom: 90px;   /* فاصله از دکمه - به مقدار دلخواه تنظیم کن */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: fadeInUp 0.3s ease;
+  border: 1px solid #ffd800;
+}
+
+.info-bubble-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.info-bubble-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.info-bubble p {
+  margin: 0;
+  font-size: 13px;
+  color: #4a5c64;
+  line-height: 1.5;
+}
+
+/* پیکان بالون به سمت دکمه */
+.bubble-arrow {
+  position: absolute;
+  bottom: -12px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid white;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* دکمه شناور اصلی */
+.floating-support-btn {
+  background: #13314c;
+  color: white;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.floating-support-btn:hover {
+  transform: scale(1.05);
+  background: #0f2a3f;
+}
+
+.support-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.support-text {
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media (max-width: 550px) {
+  .floating-container {
+    bottom: 20px;
+    right: 20px;
+  }
+  .info-bubble {
+    width: 220px;
+    margin-bottom: 60px;
+  }
+  .floating-support-btn {
+    width: 55px;
+    height: 55px;
+  }
+  .support-icon {
+    font-size: 22px;
+  }
+  .support-text {
+    font-size: 8px;
+  }
+  .bubble-arrow {
+    right: 15px;
+  }
+}

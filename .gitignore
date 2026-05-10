@@ -1,0 +1,43 @@
+# وابستگی‌ها
+node_modules/
+.pnpm-store/
+
+# فایل‌های build شده
+dist/
+build/
+.wite/
+.cache/
+
+# فایل‌های دیتابیس
+*.sql
+*.db
+*.sqlite
+
+# فایل‌های حجیم
+*.zip
+*.tar.gz
+*.tsv
+*.csv
+*.xlsx
+*.psd
+
+# محیط و کانفیگ
+.env
+.env.local
+.env.*.local
+pgadmin_env/
+
+# فایل‌های سیستمی
+.DS_Store
+Thumbs.db
+*.log
+
+# فایل‌های موقت
+migrate.load
+*.tmp
+*.temp
+
+# آیدی‌ها و کلیدها
+*.pem
+*.key
+*.crt
