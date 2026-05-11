@@ -7,7 +7,10 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['https://asemantile.com', 'https://api.asemantile.com', 'http://localhost:5173'],
+  credentials: true
+}));
 app.use(express.json());
 
 // ========== سرویس فایل‌های استاتیک فرانت‌اند ==========
