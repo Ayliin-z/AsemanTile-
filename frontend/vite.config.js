@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        const API_URL = 'https://api.asemantile.com',
+        target: 'http://localhost:5003',
         changeOrigin: true
       }
     }
