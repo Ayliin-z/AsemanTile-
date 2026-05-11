@@ -29,7 +29,7 @@ const LoginPage = () => {
     const cleanPassword = toEnglishDigits(password.trim());
 
     try {
-      const res = await fetch('http://localhost:5003/api/auth/login', {
+      const res = await fetch('http://api.asemantile.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mobile: cleanMobile, password: cleanPassword }),

@@ -14,7 +14,7 @@ const BrandDetailPage = () => {
   useEffect(() => {
     const fetchBrandAndProducts = async () => {
       try {
-        const brandRes = await fetch(`http://localhost:5003/api/brands/${brandId}`);
+        const brandRes = await fetch(`http://api.asemantile.com/api/brands/${brandId}`);
         const brandData = await brandRes.json();
         if (brandData.success) {
           setBrand(brandData.data);

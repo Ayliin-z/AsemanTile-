@@ -37,13 +37,13 @@ const RegisterPage = () => {
     try {
       let res;
       if (userType === 'partner') {
-        res = await fetch('http://localhost:5003/api/auth/register-partner', {
+        res = await fetch('http://api.asemantile.com/api/auth/register-partner', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, mobile, password, companyName, city, address }),
         });
       } else {
-        res = await fetch('http://localhost:5003/api/auth/register', {
+        res = await fetch('http://api.asemantile.com/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, mobile, password }),

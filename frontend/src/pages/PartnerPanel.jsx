@@ -31,7 +31,7 @@ const PartnerPanel = () => {
   useEffect(() => {
     const fetchPartnerId = async () => {
       try {
-        const res = await fetch(`http://localhost:5003/api/partners/user/${customer.id}`);
+        const res = await fetch(`http://api.asemantile.com/api/partners/user/${customer.id}`);
         const data = await res.json();
         if (data.success && data.data) {
           setPartnerId(data.data.id); // این id مربوط به جدول partners است
@@ -51,7 +51,7 @@ const PartnerPanel = () => {
   const loadProducts = async () => {
     setLoadingProducts(true);
     try {
-      const res = await fetch('http://localhost:5003/api/products');
+      const res = await fetch('http://api.asemantile.com/api/products');
       const data = await res.json();
       if (data.success) {
         // فقط محصولاتی که مخاطب آن 'partners' یا 'all' باشد
@@ -66,7 +66,7 @@ const PartnerPanel = () => {
   const loadWishlist = async () => {
     setLoadingWishlist(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/wishlist/${customer.id}`);
+      const res = await fetch(`http://api.asemantile.com/api/wishlist/${customer.id}`);
       const data = await res.json();
       if (data.success) setWishlist(data.data);
     } catch (err) { console.error(err); }
@@ -78,7 +78,7 @@ const PartnerPanel = () => {
     if (!partnerId) return;
     setLoadingQuotes(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes?partner_id=${partnerId}`);
+      const res = await fetch(`http://api.asemantile.com/api/quotes?partner_id=${partnerId}`);
       const data = await res.json();
       if (data.success) setQuotes(data.data);
     } catch (err) { console.error(err); }
@@ -88,7 +88,7 @@ const PartnerPanel = () => {
   const loadExperts = async () => {
     setLoadingExperts(true);
     try {
-      const res = await fetch('http://localhost:5003/api/experts');
+      const res = await fetch('http://api.asemantile.com/api/experts');
       const data = await res.json();
       if (data.success) setExperts(data.data);
     } catch (err) { console.error(err); }
@@ -106,7 +106,7 @@ const PartnerPanel = () => {
   useEffect(() => {
     const fetchPartnerId = async () => {
       try {
-        const res = await fetch(`http://localhost:5003/api/partners/user/${customer.id}`);
+        const res = await fetch(`http://api.asemantile.com/api/partners/user/${customer.id}`);
         const data = await res.json();
         if (data.success) {
           setPartnerId(data.data.id); // این id مربوط به جدول partners است
@@ -132,7 +132,7 @@ const PartnerPanel = () => {
       
       console.log('قیمت محصول:', productPrice); // برای بررسی در کنسول
       
-      const res = await fetch('http://localhost:5003/api/quotes', {
+      const res = await fetch('http://api.asemantile.com/api/quotes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -302,7 +302,7 @@ const PartnerPanel = () => {
                         style={{marginTop:5, width:'100%'}}
                         onClick={async () => {
                           // حذف از علاقه‌مندی‌ها
-                          await fetch(`http://localhost:5003/api/wishlist/${item.id}`, { method: 'DELETE' });
+                          await fetch(`http://api.asemantile.com/api/wishlist/${item.id}`, { method: 'DELETE' });
                           loadWishlist(); // رفرش لیست
                         }}
                       >

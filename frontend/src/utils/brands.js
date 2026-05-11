@@ -1,9 +1,11 @@
 import apiClient from './apiClient';
+import API_BASE from '../config';
+
 
 // frontend/src/utils/brands.js
 export const getBrands = async () => {
   try {
-    const res = await fetch('http://localhost:5003/api/brands');
+  const res = await fetch(`${API_BASE}/api/brands`);
     if (!res.ok) throw new Error('خطا در دریافت برندها');
     const data = await res.json();
     return Array.isArray(data) ? data : [];
@@ -15,7 +17,7 @@ export const getBrands = async () => {
 
 export const addBrand = async (brandData) => {
   try {
-    const res = await fetch('http://localhost:5003/api/brands', {
+    const res = await fetch(`${API_BASE}/api/brands`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: brandData.name }),

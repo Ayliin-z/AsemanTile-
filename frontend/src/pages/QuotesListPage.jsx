@@ -20,7 +20,7 @@ const QuotesListPage = () => {
   const loadQuotes = async () => {
     setLoading(true)
     try {
-      let url = 'http://localhost:5003/api/quotes'
+      let url = 'http://api.asemantile.com/api/quotes'
       const params = []
       if (filter.status) params.push(`status=${filter.status}`)
       if (filter.customer_mobile) params.push(`customer_mobile=${filter.customer_mobile}`)
@@ -207,7 +207,7 @@ const QuotesListPage = () => {
                       <button className="btn-view" onClick={() => viewQuote(quote.id)}>
                         مشاهده
                       </button>
-                      <button className="btn-print" onClick={() => window.open(`http://localhost:5003/api/quotes/${quote.id}/pdf`, '_blank')}>
+                      <button className="btn-print" onClick={() => window.open(`http://api.asemantile.com/api/quotes/${quote.id}/pdf`, '_blank')}>
                         چاپ
                       </button>
                     </td>

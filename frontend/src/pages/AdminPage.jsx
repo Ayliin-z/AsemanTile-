@@ -223,7 +223,7 @@ const AdminPage = () => {
   // Load stats from API
   const loadRegistrationStats = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/stats/registrations');
+      const res = await fetch('http://api.asemantile.com/api/stats/registrations');
       const result = await res.json();
       if (result.success) setRegistrationStats(result.data);
     } catch (error) {
@@ -234,7 +234,7 @@ const AdminPage = () => {
   const fetchCustomerQuotes = async (mobile) => {
     setLoadingQuotes(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes`);
+      const res = await fetch(`http://api.asemantile.com/api/quotes`);
       const result = await res.json();
       if (result.success && Array.isArray(result.data)) {
         const filtered = result.data.filter(quote => quote.customer_mobile === mobile);
@@ -268,7 +268,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
   const formData = new FormData();
   files.forEach(file => formData.append('images', file));
   try {
-    const response = await fetch('http://localhost:5003/api/upload', {
+    const response = await fetch('http://api.asemantile.com/api/upload', {
       method: 'POST',
       body: formData
     });
@@ -279,7 +279,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
       const currentImages = form.images ? form.images.split(',').map(s => s.trim()).filter(Boolean) : [];
       setForm({ ...form, images: [...currentImages, ...newImageUrls].join(', ') });
       // برای پیش‌نمایش از آدرس کامل استفاده کنید
-      const fullUrls = newImageUrls.map(url => `http://localhost:5003${url}`);
+      const fullUrls = newImageUrls.map(url => `http://lapi.asemantile.com${url}`);
       setImagePreviews(prev => [...prev, ...fullUrls]);
     } else {
       alert('خطا در آپلود تصاویر');
@@ -305,7 +305,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
 
   const loadQuoteStats = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/quotes');
+      const res = await fetch('http://api.asemantile.com/api/quotes');
       const result = await res.json();
       if (result.success && Array.isArray(result.data)) {
         const quotes = result.data;
@@ -335,7 +335,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
     setMonthlyStatsLoading(true);
     const fromDate = getFirstDayOfMonth();
     try {
-      const customersRes = await fetch(`http://localhost:5003/api/users?type=customer&from_date=${fromDate}`);
+      const customersRes = await fetch(`http://api.asemantile.com/api/users?type=customer&from_date=${fromDate}`);
       const customersData = await customersRes.json();
       if (Array.isArray(customersData)) {
         setMonthlyCustomerCount(customersData.length);
@@ -345,7 +345,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
         setMonthlyCustomerCount(0);
       }
 
-      const quotesRes = await fetch(`http://localhost:5003/api/quotes?from_date=${fromDate}`);
+      const quotesRes = await fetch(`http://api.asemantile.com/api/quotes?from_date=${fromDate}`);
       const quotesResult = await quotesRes.json();
       if (quotesResult.success && Array.isArray(quotesResult.data)) {
         let count = 0, total = 0;
@@ -433,7 +433,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
   };
   const loadCustomersData = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/users');
+      const res = await fetch('http://api.asemantile.com/api/users');
       if (!res.ok) {
         const errorText = await res.text();
         console.error('خطا در دریافت مشتریان:', errorText);
@@ -458,7 +458,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
 
   const loadExperts = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/experts/all');
+      const res = await fetch('http://api.asemantile.com/api/experts/all');
       const data = await res.json();
       if (data.success) setExperts(data.data);
     } catch (err) { console.error(err); }
@@ -628,7 +628,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
     // تنظیم پیش‌نمایش تصاویر موجود
     if (product.images && product.images.length) {
       const existingPreviews = product.images.map(img => 
-        img.startsWith('http') ? img : `http://localhost:5003${img}`
+        img.startsWith('http') ? img : `http://api.asemantile.com${img}`
       );
       setImagePreviews(existingPreviews);
     } else {
@@ -1492,7 +1492,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
       alert('لطفاً متنی را که می‌خواهید لینک شود، انتخاب کنید.');
       return;
     }
-    const url = prompt('آدرس کامل مقاله وبلاگ را وارد کنید (مثال: http://localhost:5003/blog/راهنمای-خرید):');
+    const url = prompt('آدرس کامل مقاله وبلاگ را وارد کنید (مثال: http://api.asemantile.com/blog/راهنمای-خرید):');
     if (!url) return;
     const linkHtml = `<a href="${url}" target="_blank">${selectedText}</a>`;
     const newDescription = templateForm.description.substring(0, start) + linkHtml + templateForm.description.substring(end);
@@ -1713,7 +1713,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
     // دریافت جزئیات یک مشتری
   const fetchCustomerDetails = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5003/api/users/${id}`);
+      const res = await fetch(`http://api.asemantile.com/api/users/${id}`);
       const data = await res.json();
       setSelectedCustomer(data);
       setShowCustomerModal(true);
@@ -1726,7 +1726,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
   const handleChangeCustomerType = async (id, newType) => {
     if (window.confirm(`آیا می‌خواهید نوع این کاربر به "${newType === 'partner' ? 'همکار' : 'مشتری عادی'}" تغییر یابد؟`)) {
       try {
-        const res = await fetch(`http://localhost:5003/api/users/${id}`, {
+        const res = await fetch(`http://api.asemantile.com/api/users/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: newType }),
@@ -1749,7 +1749,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
     const action = newStatus ? 'فعال' : 'مسدود';
     if (window.confirm(`آیا می‌خواهید این کاربر را ${action} کنید؟`)) {
       try {
-        const res = await fetch(`http://localhost:5003/api/users/${id}`, {
+        const res = await fetch(`http://api.asemantile.com/api/users/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ is_active: newStatus }),
@@ -1774,7 +1774,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5003/api/users', {
+      const res = await fetch('http://api.asemantile.com/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, mobile, email: email || undefined, password, type }),
@@ -2038,7 +2038,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
   const handleAddExpert = async () => {
     if (!expertForm.name || !expertForm.phone) { alert('نام و شماره تماس الزامی است'); return; }
     try {
-      const res = await fetch('http://localhost:5003/api/experts', {
+      const res = await fetch('http://api.asemantile.com/api/experts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(expertForm)
@@ -2052,7 +2052,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
   const handleUpdateExpert = async () => {
     if (!editingExpertId) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/experts/${editingExpertId}`, {
+      const res = await fetch(`http://api.asemantile.com/api/experts/${editingExpertId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(expertForm)
@@ -2068,7 +2068,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
 
   const handleDeleteExpert = async (id) => {
     if (window.confirm('حذف این کارشناس؟')) {
-      try { await fetch(`http://localhost:5003/api/experts/${id}`, { method: 'DELETE' }); loadExperts(); }
+      try { await fetch(`http://api.asemantile.comapi/experts/${id}`, { method: 'DELETE' }); loadExperts(); }
       catch (err) { console.error(err); }
     }
   };
