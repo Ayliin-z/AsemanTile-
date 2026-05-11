@@ -4,10 +4,8 @@
   "description": "فروشگاه کاشی و سرامیک آسمان",
   "main": "backend/server-mysql.cjs",
   "scripts": {
-    "start": "cd backend && node server-mysql.cjs",
-    "install-backend": "cd backend && npm install",
-    "install-frontend": "cd frontend && npm install",
-    "build-frontend": "cd frontend && npm run build"
+    "start": "node backend/server-mysql.cjs",
+    "postinstall": "cd backend && npm install"
   },
   "author": "",
   "license": "ISC"
