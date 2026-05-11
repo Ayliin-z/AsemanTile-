@@ -8,11 +8,12 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'aseman_super_secret_key_change_in_production';
 const JWT_EXPIRES_IN = '7d';
 
+// ========== اصلاح: استفاده از متغیرهای محیطی ==========
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'asemant2_Aseman',
-  password: 'Aseman@2024!',
-  database: 'aseman_db',
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'h375936_Admin',
+  password: process.env.DB_PASSWORD || '_AsemanTile1234',
+  database: process.env.DB_NAME || 'h375936_AsemanTile',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
