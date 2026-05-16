@@ -567,7 +567,7 @@ app.get('/', (req, res) => {
     res.status(200).send('Server is running');
 });
 // ========== START SERVER (نسخه نهایی برای هاست) ==========
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5003;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 سرور روی پورت ${PORT} در حال اجراست`);
   console.log(`📁 مسیر جاری: ${__dirname}`);
