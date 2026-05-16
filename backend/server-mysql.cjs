@@ -26,11 +26,19 @@ if (fs.existsSync(frontendPath)) {
 }
 
 // ========== MySQL Connection Pool (تنظیم برای هاست) ==========
+// ========== MySQL Connection Pool (تنظیم برای PaaS) ==========
+console.log('🔍 Environment Variables Check:');
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('DB_NAME:', process.env.DB_NAME);
+console.log('DB_PORT:', process.env.DB_PORT);
+
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'h375936_Admin',
-  password: process.env.DB_PASSWORD || '_AsemanTile1234',
-  database: process.env.DB_NAME || 'h375936_AsemanTile',
+  user: process.env.DB_USER || 'client',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'asemantiledb',
+  port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -42,14 +50,17 @@ const promisePool = pool.promise();
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('❌ خطا در اتصال به MySQL:', err);
+    console.error('❌ تنظیمات استفاده شده:', {
+      host: process.env.DB_HOST || 'localhost',
+      user: process.env.DB_USER || 'client',
+      database: process.env.DB_NAME || 'asemantiledb',
+      port: process.env.DB_PORT || 3306
+    });
   } else {
     console.log('✅ متصل به MySQL شد');
     connection.release();
   }
 });
-
-const JWT_SECRET = process.env.JWT_SECRET || 'aseman_super_secret_key_change_in_production';
-
 // ========== مسیرهای Auth (با بررسی وجود فایل) ==========
 try {
   const authRoutes = require('./api/auth.cjs');
