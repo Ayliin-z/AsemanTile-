@@ -52,7 +52,7 @@ pool.getConnection((err, connection) => {
     console.error('❌ خطا در اتصال به MySQL:', err);
     console.error('❌ تنظیمات استفاده شده:', {
       host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'client',
+      user: process.env.DB_USER || 'basic',
       database: process.env.DB_NAME || 'asemantiledb',
       port: process.env.DB_PORT || 3306
     });
