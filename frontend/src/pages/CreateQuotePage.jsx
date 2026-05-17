@@ -185,7 +185,7 @@ const CreateQuotePage = () => {
       
       console.log('Sending quote data:', quoteData)
       
-      const res = await fetch('http://api.asemantile.com/api/quotes', {
+      const res = await fetch('/api/quotes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(quoteData)

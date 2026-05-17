@@ -1,4 +1,4 @@
-const API_URL = 'http://api.asemantile.com/api/product-templates';
+const API_URL = '/api/product-templates';
 
 export const getProductTemplates = async () => {
   try {

@@ -26,7 +26,7 @@ const ProductPage = () => {
         if (found) {
           setProduct(found);
           try {
-            const res = await fetch('http://api.asemantile.com/api/product-templates');
+            const res = await fetch('/api/product-templates');
             const templates = await res.json();
             if (templates && Array.isArray(templates)) {
               const { generateProductDescription } = await import('../utils/productTemplates.js');
@@ -73,7 +73,7 @@ const ProductPage = () => {
   // چک کردن وضعیت علاقه‌مندی
   useEffect(() => {
     if (!currentUserId || !product?.id) return;
-    fetch(`http://api.asemantile.com/api/wishlist/check/${currentUserId}/${product.id}`)
+    fetch(`/api/wishlist/check/${currentUserId}/${product.id}`)
       .then(r => r.json())
       .then(d => { if (d.success) { setLiked(d.liked); setWishlistId(d.id); } })
       .catch(err => console.error('Wishlist check failed:', err));
@@ -157,11 +157,11 @@ const ProductPage = () => {
   const toggleWishlist = async () => {
     if (!currentUserId) return;
     if (liked) {
-      await fetch(`http://api.asemantile.com/api/wishlist/${wishlistId}`, { method: 'DELETE' });
+      await fetch(`/api/wishlist/${wishlistId}`, { method: 'DELETE' });
       setLiked(false);
       setWishlistId(null);
     } else {
-      const res = await fetch('http://api.asemantile.com/api/wishlist', {
+      const res = await fetch('/api/wishlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUserId, product_id: product.id })

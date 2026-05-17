@@ -42,7 +42,7 @@ const ProductsPage = () => {
   useEffect(() => {
     if (manufacturerParam) {
       setBrandLoading(true);
-      fetch(`http://api.asemantile.com/api/brands/name/${encodeURIComponent(manufacturerParam)}`)
+      fetch(`/api/brands/name/${encodeURIComponent(manufacturerParam)}`)
         .then(res => res.json())
         .then(data => {
           if (data.success) setBrandInfo(data.data);

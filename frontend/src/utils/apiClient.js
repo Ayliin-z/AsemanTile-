@@ -1,5 +1,5 @@
 // frontend/src/utils/apiClient.js
-const API_BASE = import.meta.env.VITE_API_URL || 'https://api.asemantile.com';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 // --------------- مدیریت Token ---------------
 const TOKEN_KEY = 'aseman_token';
 

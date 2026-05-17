@@ -1,7 +1,7 @@
 // frontend/src/utils/customerAuth.js
 const CUSTOMER_AUTH_KEY = 'aseman_customer_auth';
 const OTP_STORAGE_KEY = 'aseman_otp_codes';
-const API_BASE = 'https://api.asemantile.com';
+const API_BASE = '';
 // ========== OTP Helpers (بدون تغییر) ==========
 const generateOtpCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 

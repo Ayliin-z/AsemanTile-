@@ -15,7 +15,7 @@ const CustomerPanel = () => {
     if (!customer?.id) return
     setLoadingWishlist(true)
     try {
-      const res = await fetch(`http://api.asemantile.com/api/wishlist/${customer.id}`)
+      const res = await fetch(`/api/wishlist/${customer.id}`)
       const data = await res.json()
       if (data.success) setWishlist(data.data)
     } catch (err) { console.error(err) }
@@ -111,7 +111,7 @@ const CustomerPanel = () => {
                         className="btn-primary"
                         style={{marginTop:5, width:'100%'}}
                         onClick={async () => {
-                          await fetch(`http://api.asemantile.com/api/wishlist/${item.id}`, { method: 'DELETE' });
+                          await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' });
                           loadWishlist();
                         }}
                       >

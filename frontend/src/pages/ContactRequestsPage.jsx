@@ -5,7 +5,7 @@ const ContactRequestsPage = () => {
   const [requests, setRequests] = useState([])
 
   useEffect(() => {
-    fetch('http://api.asemantile.com/api/contact')
+    fetch('/api/contact')
       .then(res => res.json())
       .then(data => setRequests(data))
       .catch(err => console.error(err))

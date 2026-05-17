@@ -1,5 +1,5 @@
 // frontend/src/utils/employeeAuth.js
-const API_URL = 'https://api.asemantile.com/api/employees';
+const API_URL = '/api/employees';
 // دریافت لیست کارمندان
 export const getEmployees = async () => {
   try {
