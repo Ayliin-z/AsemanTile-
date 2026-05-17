@@ -279,7 +279,7 @@ const uploadImagesToServer = async (files, inputEvent) => {
       const currentImages = form.images ? form.images.split(',').map(s => s.trim()).filter(Boolean) : [];
       setForm({ ...form, images: [...currentImages, ...newImageUrls].join(', ') });
       // برای پیش‌نمایش از آدرس کامل استفاده کنید
-      const fullUrls = newImageUrls.map(url => `http://lapi.asemantile.com${url}`);
+      const fullUrls = newImageUrls.map(url => `${url}`);
       setImagePreviews(prev => [...prev, ...fullUrls]);
     } else {
       alert('خطا در آپلود تصاویر');
