@@ -1,0 +1,8 @@
+node_modules/
+.env
+dist/
+.vite/
+proj/
+pgadmin_env/
+*.log
+.DS_Store

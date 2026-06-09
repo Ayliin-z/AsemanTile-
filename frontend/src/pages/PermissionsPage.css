@@ -1,0 +1,887 @@
+/* frontend/src/pages/PermissionsPage.css */
+.permissions-page {
+  padding: 30px;
+  direction: rtl;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.permissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.permissions-header h1 {
+  color: #13314c;
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.btn-add-role {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-role:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+}
+
+/* گرید نقش‌ها */
+.roles-grid {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.role-card {
+  background: white;
+  border-radius: 24px;
+  padding: 30px 25px;
+  width: 220px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: 1px solid #e3dede;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.role-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  border-color: #1c7385;
+}
+
+.role-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.role-name {
+  color: #13314c;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.role-desc {
+  color: #7c8788;
+  font-size: 12px;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.role-perms-count {
+  color: #1c7385;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e3dede;
+}
+
+/* لودینگ */
+.permissions-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e3dede;
+  border-top-color: #1c7385;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* مودال */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 750px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.modal-container.small {
+  max-width: 450px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid #e3dede;
+  background: white;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #13314c;
+  font-size: 22px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #a70023;
+}
+
+.modal-body {
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 20px 25px;
+  border-top: 1px solid #e3dede;
+  background: white;
+}
+
+/* فرم */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #13314c;
+  font-size: 14px;
+}
+
+.role-desc-input,
+.role-name-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.role-desc-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+/* دسترسی‌ها */
+.permissions-title {
+  color: #13314c;
+  margin: 0 0 15px 0;
+  font-size: 18px;
+}
+
+.permissions-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-left: 5px;
+}
+
+.permission-group {
+  margin-bottom: 20px;
+}
+
+.permission-group-title {
+  color: #1c7385;
+  border-bottom: 1px solid #e3dede;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.permission-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.permission-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #334155;
+}
+
+.permission-item input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #1c7385;
+}
+
+/* دکمه‌ها */
+.btn-save {
+  background: #1c7385;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-save:hover {
+  background: #0f5a6b;
+  transform: translateY(-2px);
+}
+
+.btn-cancel {
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+  color: #13314c;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #dee2e6;
+}
+
+.btn-delete {
+  background: #a70023;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: auto;
+}
+
+.btn-delete:hover {
+  background: #8b001a;
+  transform: translateY(-2px);
+}
+/* ========== بخش تیم‌ها ========== */
+.teams-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid #e3dede;
+}
+
+.teams-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.teams-header h2 {
+  color: #13314c;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.teams-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-add-team {
+  background: #1c7385;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-team:hover {
+  background: #0f5a6b;
+  transform: translateY(-2px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #7c8788;
+  background: white;
+  border-radius: 20px;
+}
+
+.teams-grid {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.team-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 260px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e3dede;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: relative;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-color: #1c7385;
+}
+
+.team-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.team-name {
+  color: #13314c;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.team-desc {
+  color: #7c8788;
+  font-size: 12px;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.team-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.team-supervisor {
+  color: #1c7385;
+  font-weight: 500;
+}
+
+.team-members-count {
+  color: #7c8788;
+}
+
+.btn-add-member {
+  width: 100%;
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+  color: #13314c;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-member:hover {
+  background: #1c7385;
+  color: white;
+  border-color: #1c7385;
+}
+
+.member-select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.btn-add-member-global {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-member-global:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+}
+
+/* دکمه افزودن عضو به تیم (کنار افزودن تیم) */
+.btn-add-member-global {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-member-global:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+}
+
+/* خطا */
+.permissions-error {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 24px;
+  margin: 50px auto;
+  max-width: 500px;
+}
+
+.permissions-error p {
+  color: #a70023;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.btn-retry {
+  background: #1c7385;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.btn-retry:hover {
+  background: #0f5a6b;
+}
+.btn-add-employee {
+  background: #6c757d;
+  color: white;
+
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-employee:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-add-employee {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-employee:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* لیست اعضای تیم */
+.team-members-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.team-members-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e3dede;
+}
+
+.remove-member-btn {
+  background: #a70023;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.remove-member-btn:hover {
+  background: #8b001a;
+  transform: scale(1.05);
+}
+
+/* دکمه افزودن عضو در مودال */
+.btn-add-member-in-modal {
+  width: 100%;
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 15px;
+}
+
+.btn-add-member-in-modal:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+}
+
+/* ورودی نام تیم در مودال */
+.team-name-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.team-supervisor-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ced4da;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+/* استایل اعضای تیم */
+.team-member-card {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e3dede;
+}
+
+.member-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  background: #13314c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #ffd800;
+}
+
+.member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.member-role {
+  font-size: 12px;
+  color: #1c7385;
+  font-weight: 500;
+}
+
+.member-mobile {
+  font-size: 11px;
+  color: #7c8788;
+}
+
+.btn-remove-member {
+  background: #a70023;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.btn-remove-member:hover {
+  background: #8b001a;
+  transform: scale(1.05);
+}
+
+/* دسترسی‌های عضو */
+.member-permissions {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.permissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #13314c;
+}
+
+.btn-edit-member-perms {
+  background: #1c7385;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.permissions-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.perm-tag {
+  background: #e9ecef;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  color: #495057;
+}
+
+.perm-tag.from-role {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.perm-tag.added {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.perm-tag.more {
+  background: #f0f4f7;
+  color: #6c757d;
+}
+
+.perm-tag small {
+  font-size: 9px;
+  margin-right: 4px;
+}
+
+.btn-add-member-to-team {
+  width: 100%;
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.2s;
+}
+
+.btn-add-member-to-team:hover {
+  background: #219a52;
+  transform: translateY(-2px);
+}
+
+.empty-text {
+  text-align: center;
+  padding: 30px;
+  color: #7c8788;
+}
+
+/* دسترسی‌های کارمند */
+.role-info {
+  background: #f0f4f7;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.role-perms-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.role-perm-badge {
+  background: #e9ecef;
+  padding: 2px 8px;
+  border-radius: 15px;
+  font-size: 11px;
+  color: #495057;
+}
+
+.helper-text {
+  font-size: 12px;
+  color: #7c8788;
+  margin-bottom: 15px;
+}
+
+.permissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+.permission-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  border-right: 3px solid #ced4da;
+  transition: all 0.2s;
+}
+
+.permission-checkbox:hover {
+  background: #e9ecef;
+}
+
+.permission-checkbox.from-role {
+  border-right-color: #2196f3;
+  background: #e3f2fd;
+}
+
+.permission-checkbox.added {
+  border-right-color: #4caf50;
+  background: #e8f5e9;
+}
+
+.permission-checkbox.removed {
+  border-right-color: #f44336;
+  background: #ffebee;
+}
+
+.permission-checkbox input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.permission-checkbox span:first-of-type {
+  flex: 1;
+  font-size: 13px;
+}
+
+.badge-role, .badge-added, .badge-removed {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.badge-role {
+  background: #2196f3;
+  color: white;
+}
+
+.badge-added {
+  background: #4caf50;
+  color: white;
+}
+
+.badge-removed {
+  background: #f44336;
+  color: white;
+}
