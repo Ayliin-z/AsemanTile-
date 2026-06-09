@@ -17,10 +17,11 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ========== MySQL Connection Pool ==========
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'asemant2_Aseman',
-  password: 'Aseman@2024!',
-  database: 'aseman_db',
+  host: 'app-mysql-k6xwa',
+  user: 'basic',
+  password: 'iJg_dmInZnw9Uq9WNLE3',
+  database: 'asemantiledb
+',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

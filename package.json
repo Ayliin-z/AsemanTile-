@@ -6,7 +6,5 @@
   "scripts": {
     "start": "node backend/server-mysql.cjs",
     "postinstall": "cd backend && npm install"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
