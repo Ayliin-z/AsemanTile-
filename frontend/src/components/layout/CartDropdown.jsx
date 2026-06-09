@@ -123,7 +123,7 @@ const CartDropdown = () => {
         const user = JSON.parse(customerAuth);
         if (user.type === 'partner') {
           // دریافت partner_id از دیتابیس
-          const res = await fetch(`http://localhost:5003/api/partners/user/${user.id}`);
+          const res = await fetch(`/api/partners/user/${user.id}`);
           const data = await res.json();
           if (data.success) {
             partnerId = data.data.id;
@@ -153,7 +153,7 @@ const CartDropdown = () => {
         notes: hasZeroPriceItems() ? 'در انتظار تأیید قیمت' : ''
       };
       
-      const res = await fetch('http://localhost:5003/api/quotes', {
+      const res = await fetch('/api/quotes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
@@ -183,8 +183,8 @@ const CartDropdown = () => {
   const getImageUrl = (image) => {
     if (!image) return '/images/placeholder.jpg';
     if (image.startsWith('http')) return image;
-    if (image.startsWith('/uploads')) return `http://localhost:5003${image}`;
-    return `http://localhost:5003/uploads/${image}`;
+    if (image.startsWith('/uploads')) return `${image}`;
+    return `/uploads/${image}`;
   };
 
   // مودال بزرگ ثبت سفارش

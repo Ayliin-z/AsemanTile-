@@ -1,5 +1,5 @@
 // frontend/src/utils/apiClient.js
-const API_BASE = 'http://localhost:5003'; // می‌تونی بعداً از متغیر محیطی استفاده کنی
+const API_BASE = ''; // می‌تونی بعداً از متغیر محیطی استفاده کنی
 
 // --------------- مدیریت Token ---------------
 const TOKEN_KEY = 'aseman_token';

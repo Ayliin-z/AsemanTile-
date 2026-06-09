@@ -20,7 +20,7 @@ const AdminOrdersList = () => {
   const loadOrders = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5003/api/quotes');
+      const res = await fetch('/api/quotes');
       const data = await res.json();
       if (data.success) {
         setOrders(data.data);
@@ -39,7 +39,7 @@ const AdminOrdersList = () => {
     
     try {
       // دریافت آیتم‌های سفارش
-      const itemsRes = await fetch(`http://localhost:5003/api/quotes/${order.id}`);
+      const itemsRes = await fetch(`/api/quotes/${order.id}`);
       const itemsData = await itemsRes.json();
       if (itemsData.success) {
         setOrderItems(itemsData.data.items || []);
@@ -47,7 +47,7 @@ const AdminOrdersList = () => {
       
       // دریافت اطلاعات همکار
       if (order.partner_id) {
-        const partnerRes = await fetch(`http://localhost:5003/api/partners/${order.partner_id}`);
+        const partnerRes = await fetch(`/api/partners/${order.partner_id}`);
         const partnerData = await partnerRes.json();
         if (partnerData.success) {
           setOrderPartner(partnerData.data);
@@ -59,7 +59,7 @@ const AdminOrdersList = () => {
       }
       
       // دریافت تاریخچه تغییرات وضعیت
-      const logsRes = await fetch(`http://localhost:5003/api/quotes/${order.id}/status-logs`);
+      const logsRes = await fetch(`/api/quotes/${order.id}/status-logs`);
       const logsData = await logsRes.json();
       if (logsData.success) {
         setOrderLogs(logsData.data);
@@ -76,7 +76,7 @@ const AdminOrdersList = () => {
     if (!window.confirm(`آیا وضعیت این سفارش به "${getStatusLabel(newStatus)}" تغییر کند؟`)) return;
     
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes/${orderId}/status`, {
+      const res = await fetch(`/api/quotes/${orderId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -103,7 +103,7 @@ const AdminOrdersList = () => {
     
     setSubmittingNote(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes/${selectedOrder.id}/note`, {
+      const res = await fetch(`/api/quotes/${selectedOrder.id}/note`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ note: newNote })
@@ -113,7 +113,7 @@ const AdminOrdersList = () => {
         alert('توضیحات با موفقیت اضافه شد');
         setNewNote('');
         // بارگذاری مجدد تاریخچه
-        const logsRes = await fetch(`http://localhost:5003/api/quotes/${selectedOrder.id}/status-logs`);
+        const logsRes = await fetch(`/api/quotes/${selectedOrder.id}/status-logs`);
         const logsData = await logsRes.json();
         if (logsData.success) {
           setOrderLogs(logsData.data);

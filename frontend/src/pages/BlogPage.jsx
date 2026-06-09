@@ -15,7 +15,7 @@ const BlogPage = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5003/api/blog');
+      const res = await fetch('/api/blog');
       if (!res.ok) throw new Error('خطا در دریافت مقالات');
       const data = await res.json();
       const postsData = data.posts || data || [];

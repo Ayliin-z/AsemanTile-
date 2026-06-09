@@ -133,7 +133,7 @@ const PartnerPanel = () => {
         notes: hasZeroPriceItems ? 'در انتظار تأیید قیمت' : ''
       };
 
-      const res = await fetch('http://localhost:5003/api/quotes', {
+      const res = await fetch('/api/quotes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
@@ -171,7 +171,7 @@ const PartnerPanel = () => {
     setLoadingQuoteDetail(true);
     
     try {
-      const logsRes = await fetch(`http://localhost:5003/api/quotes/${quote.id}/status-logs`);
+      const logsRes = await fetch(`/api/quotes/${quote.id}/status-logs`);
       const logsData = await logsRes.json();
       if (logsData.success) {
         setQuoteStatusLogs(logsData.data);
@@ -179,7 +179,7 @@ const PartnerPanel = () => {
         setQuoteStatusLogs([]);
       }
       
-      const itemsRes = await fetch(`http://localhost:5003/api/quotes/${quote.id}`);
+      const itemsRes = await fetch(`/api/quotes/${quote.id}`);
       const itemsData = await itemsRes.json();
       if (itemsData.success) {
         setSelectedQuote(prev => ({ ...prev, items: itemsData.data.items }));
@@ -195,13 +195,13 @@ const PartnerPanel = () => {
   const loadPartnerInfo = async () => {
     if (!customer.id) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/partners/user/${customer.id}`);
+      const res = await fetch(`/api/partners/user/${customer.id}`);
       const data = await res.json();
       if (data.success) {
         setPartnerInfo(data.data);
       } else {
         if (customer.type === 'partner') {
-          const createRes = await fetch('http://localhost:5003/api/partners', {
+          const createRes = await fetch('/api/partners', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -226,7 +226,7 @@ const PartnerPanel = () => {
   const loadProducts = async () => {
     setLoadingProducts(true);
     try {
-      const res = await fetch('http://localhost:5003/api/products');
+      const res = await fetch('/api/products');
       const data = await res.json();
       if (data.success) {
         const productsList = data.data || [];
@@ -268,13 +268,13 @@ const PartnerPanel = () => {
     setLoadingQuotes(true);
     try {
       // فقط سفارش‌های این همکار رو بگیر
-      const res = await fetch(`http://localhost:5003/api/quotes?partner_id=${partnerInfo.id}`);
+      const res = await fetch(`/api/quotes?partner_id=${partnerInfo.id}`);
       const data = await res.json();
       if (data.success) {
         const quotesWithItems = await Promise.all(
           data.data.map(async (quote) => {
             try {
-              const itemsRes = await fetch(`http://localhost:5003/api/quotes/${quote.id}`);
+              const itemsRes = await fetch(`/api/quotes/${quote.id}`);
               const itemsData = await itemsRes.json();
               if (itemsData.success) {
                 return { ...quote, items: itemsData.data.items };
@@ -298,7 +298,7 @@ const PartnerPanel = () => {
   const loadExperts = async () => {
     setLoadingExperts(true);
     try {
-      const res = await fetch('http://localhost:5003/api/experts');
+      const res = await fetch('/api/experts');
       const data = await res.json();
       if (data.success) {
         setExperts(data.data);
@@ -314,7 +314,7 @@ const PartnerPanel = () => {
     if (!customer?.id) return;
     setLoadingWishlist(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/wishlist/${customer.id}`);
+      const res = await fetch(`/api/wishlist/${customer.id}`);
       const data = await res.json();
       if (data.success) setWishlist(data.data);
     } catch (err) { console.error(err); }
@@ -325,7 +325,7 @@ const PartnerPanel = () => {
   const loadPartnerStatus = async () => {
     if (!customer.id) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/partner/status/${customer.id}`);
+      const res = await fetch(`/api/partner/status/${customer.id}`);
       const data = await res.json();
       if (data.success) {
         setPartnerStatus(data.data);
@@ -353,7 +353,7 @@ const PartnerPanel = () => {
     formData.append('partner_id', partnerInfo?.id);
     
     try {
-      const res = await fetch('http://localhost:5003/api/partner/upload-documents', {
+      const res = await fetch('/api/partner/upload-documents', {
         method: 'POST',
         body: formData
       });
@@ -394,7 +394,7 @@ const PartnerPanel = () => {
       const customer = JSON.parse(localStorage.getItem('aseman_customer_auth') || '{}');
       if (customer.id) {
         try {
-          const res = await fetch(`http://localhost:5003/api/partners/user/${customer.id}`);
+          const res = await fetch(`/api/partners/user/${customer.id}`);
           const data = await res.json();
           if (data.success) {
             setPartnerInfo(data.data);
@@ -539,8 +539,8 @@ const PartnerPanel = () => {
       if (product.images && product.images.length > 0) {
         let img = product.images[0];
         if (img && img.startsWith('http')) return img;
-        if (img && img.startsWith('/uploads')) return `http://localhost:5003${img}`;
-        if (img) return `http://localhost:5003/uploads/${img}`;
+        if (img && img.startsWith('/uploads')) return `${img}`;
+        if (img) return `/uploads/${img}`;
       }
       return '/images/placeholder.jpg';
     };
@@ -1180,7 +1180,7 @@ const PartnerPanel = () => {
                     <img src={item.images?.length > 0 ? item.images[0] : '/images/placeholder.jpg'} alt={item.name} style={{ width: '100%', height: 150, objectFit: 'cover', borderRadius: 8, marginBottom: 10 }} />
                     <h4 style={{ marginBottom: 8, color: '#13314c' }}>{item.name}</h4>
                     <p style={{ color: '#1c7385', fontWeight: 'bold', marginBottom: 10 }}>{Number(item.price_public).toLocaleString()} تومان</p>
-                    <button className="btn-primary" style={{ width: '100%' }} onClick={async () => { await fetch(`http://localhost:5003/api/wishlist/${item.id}`, { method: 'DELETE' }); loadWishlist(); }}>🗑️ حذف</button>
+                    <button className="btn-primary" style={{ width: '100%' }} onClick={async () => { await fetch(`/api/wishlist/${item.id}`, { method: 'DELETE' }); loadWishlist(); }}>🗑️ حذف</button>
                   </div>
                 ))}
               </div>

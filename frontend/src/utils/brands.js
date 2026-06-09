@@ -1,5 +1,5 @@
 // frontend/src/utils/brands.js
-const API_BASE = 'http://localhost:5003';
+const API_BASE = '';
 
 export const getBrands = async () => {
   try {

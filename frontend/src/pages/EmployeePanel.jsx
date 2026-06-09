@@ -76,7 +76,7 @@ const EmployeePanel = () => {
 
   const loadProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/products');
+      const res = await fetch('/api/products');
       const data = await res.json();
       setProducts(data.data || []);
     } catch (err) { console.error(err); }
@@ -84,7 +84,7 @@ const EmployeePanel = () => {
 
   const loadBrands = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/brands');
+      const res = await fetch('/api/brands');
       const data = await res.json();
       setBrands(data);
     } catch (err) { console.error(err); }
@@ -92,7 +92,7 @@ const EmployeePanel = () => {
 
   const loadTags = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/tags');
+      const res = await fetch('/api/tags');
       const data = await res.json();
       setTags(data);
     } catch (err) { console.error(err); }
@@ -100,7 +100,7 @@ const EmployeePanel = () => {
 
   const loadQuotes = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/quotes');
+      const res = await fetch('/api/quotes');
       const data = await res.json();
       setQuotes(data.data || []);
     } catch (err) { console.error(err); }
@@ -108,7 +108,7 @@ const EmployeePanel = () => {
 
   const loadCustomers = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/users');
+      const res = await fetch('/api/users');
       const data = await res.json();
       const users = Array.isArray(data) ? data : (data.data || []);
       setCustomers(users.filter(u => u.type === 'customer' || u.type === 'partner'));
@@ -117,7 +117,7 @@ const EmployeePanel = () => {
 
   const loadPartners = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/partners/pending');
+      const res = await fetch('/api/partners/pending');
       const data = await res.json();
       setPartners(data.data || []);
     } catch (err) { console.error(err); }
@@ -125,7 +125,7 @@ const EmployeePanel = () => {
 
   const loadBlogPosts = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/blog');
+      const res = await fetch('/api/blog');
       const data = await res.json();
       setBlogPosts(data.posts || []);
     } catch (err) { console.error(err); }
@@ -135,7 +135,7 @@ const EmployeePanel = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5003/api/products', {
+      const res = await fetch('/api/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -160,7 +160,7 @@ const EmployeePanel = () => {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm('حذف شود؟')) return;
     try {
-      await fetch(`http://localhost:5003/api/products/${id}`, { method: 'DELETE' });
+      await fetch(`/api/products/${id}`, { method: 'DELETE' });
       loadProducts();
     } catch (err) { alert('خطا'); }
   };
@@ -170,7 +170,7 @@ const EmployeePanel = () => {
     e.preventDefault();
     if (!brandForm.name) return alert('نام برند الزامی است');
     try {
-      await fetch('http://localhost:5003/api/brands', {
+      await fetch('/api/brands', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: brandForm.name, enabled: brandForm.enabled })
@@ -185,7 +185,7 @@ const EmployeePanel = () => {
   const handleDeleteBrand = async (id) => {
     if (!window.confirm('حذف شود؟')) return;
     try {
-      await fetch(`http://localhost:5003/api/brands/${id}`, { method: 'DELETE' });
+      await fetch(`/api/brands/${id}`, { method: 'DELETE' });
       loadBrands();
     } catch (err) { alert('خطا'); }
   };
@@ -195,7 +195,7 @@ const EmployeePanel = () => {
     e.preventDefault();
     if (!tagForm) return alert('نام تگ الزامی است');
     try {
-      await fetch('http://localhost:5003/api/tags', {
+      await fetch('/api/tags', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: tagForm })
@@ -210,7 +210,7 @@ const EmployeePanel = () => {
   const handleDeleteTag = async (name) => {
     if (!window.confirm('حذف شود؟')) return;
     try {
-      await fetch(`http://localhost:5003/api/tags/${name}`, { method: 'DELETE' });
+      await fetch(`/api/tags/${name}`, { method: 'DELETE' });
       loadTags();
     } catch (err) { alert('خطا'); }
   };
@@ -219,7 +219,7 @@ const EmployeePanel = () => {
   const handleChangeQuoteStatus = async (id, newStatus) => {
     if (!window.confirm(`وضعیت به "${newStatus}" تغییر کند؟`)) return;
     try {
-      await fetch(`http://localhost:5003/api/quotes/${id}/status`, {
+      await fetch(`/api/quotes/${id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -231,14 +231,14 @@ const EmployeePanel = () => {
   // ========== توابع همکاران ==========
   const handleApprovePartner = async (id) => {
     try {
-      await fetch(`http://localhost:5003/api/partners/${id}/approve`, { method: 'PUT' });
+      await fetch(`/api/partners/${id}/approve`, { method: 'PUT' });
       loadPartners();
     } catch (err) { alert('خطا'); }
   };
 
   const handleRejectPartner = async (id) => {
     try {
-      await fetch(`http://localhost:5003/api/partners/${id}/reject`, { method: 'PUT' });
+      await fetch(`/api/partners/${id}/reject`, { method: 'PUT' });
       loadPartners();
     } catch (err) { alert('خطا'); }
   };
@@ -247,7 +247,7 @@ const EmployeePanel = () => {
   const handleDeleteBlog = async (id) => {
     if (!window.confirm('حذف شود؟')) return;
     try {
-      await fetch(`http://localhost:5003/api/blog/${id}`, { method: 'DELETE' });
+      await fetch(`/api/blog/${id}`, { method: 'DELETE' });
       loadBlogPosts();
     } catch (err) { alert('خطا'); }
   };

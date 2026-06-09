@@ -23,12 +23,12 @@ const CustomerProfile = () => {
     setLoading(true);
     try {
       // دریافت اطلاعات مشتری
-      const userRes = await fetch(`http://localhost:5003/api/users/${id}`);
+      const userRes = await fetch(`/api/users/${id}`);
       const userData = await userRes.json();
       setCustomer(userData);
 
       // دریافت سفارش‌های مشتری
-      const quotesRes = await fetch(`http://localhost:5003/api/quotes`);
+      const quotesRes = await fetch(`/api/quotes`);
       const quotesData = await quotesRes.json();
       
       let customerQuotes = [];

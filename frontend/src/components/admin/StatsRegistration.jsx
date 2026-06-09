@@ -15,7 +15,7 @@ const StatsRegistration = () => {
 
   const loadStats = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/stats/registrations');
+      const res = await fetch('/api/stats/registrations');
       const result = await res.json();
       if (result.success) setRegistrationStats(result.data);
     } catch (error) {

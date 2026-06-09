@@ -57,7 +57,7 @@ const CreateQuotePage = () => {
 
   const loadProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/products');
+      const res = await fetch('/api/products');
       const data = await res.json();
       if (data.success) {
         setProducts(data.data);
@@ -70,7 +70,7 @@ const CreateQuotePage = () => {
   const loadCustomers = async () => {
     setLoadingCustomers(true);
     try {
-      const res = await fetch('http://localhost:5003/api/users');
+      const res = await fetch('/api/users');
       const data = await res.json();
       let users = [];
       if (Array.isArray(data)) users = data;
@@ -191,7 +191,7 @@ const CreateQuotePage = () => {
         created_by: user?.id || null
       };
       
-      const res = await fetch('http://localhost:5003/api/quotes', {
+      const res = await fetch('/api/quotes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(quoteData)

@@ -108,7 +108,7 @@ const ProductPage = () => {
         if (found) {
           setProduct(found)
           try {
-            const res = await fetch('http://localhost:5003/api/product-templates')
+            const res = await fetch('/api/product-templates')
             const templates = await res.json()
             if (templates && Array.isArray(templates)) {
               const { generateProductDescription } = await import('../utils/productTemplates.js')
@@ -155,7 +155,7 @@ const ProductPage = () => {
   // چک کردن وضعیت علاقه‌مندی
   useEffect(() => {
     if (!currentUserId || !product?.id || !isLoggedIn) return
-    fetch(`http://localhost:5003/api/wishlist/check/${currentUserId}/${product.id}`)
+    fetch(`/api/wishlist/check/${currentUserId}/${product.id}`)
       .then(r => r.json())
       .then(d => { if (d.success) { setLiked(d.liked); setWishlistId(d.id) } })
       .catch(err => console.error('Wishlist check failed:', err))
@@ -164,8 +164,8 @@ const ProductPage = () => {
   const getImageUrl = (img) => {
     if (!img) return '/images/placeholder.jpg'
     if (img.startsWith('http')) return img
-    if (img.startsWith('/uploads')) return `http://localhost:5003${img}`
-    return `http://localhost:5003/uploads/${img}`
+    if (img.startsWith('/uploads')) return `${img}`
+    return `/uploads/${img}`
   }
 
   // لیست تصاویر
@@ -193,11 +193,11 @@ const ProductPage = () => {
   const toggleWishlist = async () => {
     if (!currentUserId || !isLoggedIn) return
     if (liked) {
-      await fetch(`http://localhost:5003/api/wishlist/${wishlistId}`, { method: 'DELETE' })
+      await fetch(`/api/wishlist/${wishlistId}`, { method: 'DELETE' })
       setLiked(false)
       setWishlistId(null)
     } else {
-      const res = await fetch('http://localhost:5003/api/wishlist', {
+      const res = await fetch('/api/wishlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: currentUserId, product_id: product.id })
@@ -512,7 +512,7 @@ const ProductPage = () => {
                   setPriceUnlocked(true)
                   
                   try {
-                    await fetch('http://localhost:5003/api/price-requests', {
+                    await fetch('/api/price-requests', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ product_id: product.id, mobile: phoneNumber })

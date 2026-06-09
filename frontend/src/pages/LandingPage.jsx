@@ -95,7 +95,7 @@ const LandingPage = () => {
     setLoadingBrands(true);
     try {
       console.log('Fetching brands from API...');
-      const res = await fetch('http://localhost:5003/api/brands');
+      const res = await fetch('/api/brands');
       console.log('Response status:', res.status);
       
       if (!res.ok) {
@@ -402,13 +402,13 @@ const LandingPage = () => {
     if (product.images && product.images.length > 0) {
       let img = product.images[0];
       if (img && img.startsWith('http')) return img;
-      if (img && img.startsWith('/uploads')) return `http://localhost:5003${img}`;
-      if (img) return `http://localhost:5003/uploads/${img}`;
+      if (img && img.startsWith('/uploads')) return `${img}`;
+      if (img) return `/uploads/${img}`;
     }
     if (product.image) {
       if (product.image.startsWith('http')) return product.image;
-      if (product.image.startsWith('/uploads')) return `http://localhost:5003${product.image}`;
-      return `http://localhost:5003/uploads/${product.image}`;
+      if (product.image.startsWith('/uploads')) return `${product.image}`;
+      return `/uploads/${product.image}`;
     }
     return 'https://picsum.photos/300/300?random=' + product.id;
   };

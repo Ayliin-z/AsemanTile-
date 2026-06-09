@@ -31,7 +31,7 @@ const LoginPage = () => {
 
     try {
       // ========== اول سعی کن کارمند لاگین کنه ==========
-      let res = await fetch('http://localhost:5003/api/employees/login', {
+      let res = await fetch('/api/employees/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mobile: cleanMobile, password: cleanPassword }),
@@ -46,7 +46,7 @@ const LoginPage = () => {
       }
       
       // ========== بعد سعی کن مشتری لاگین کنه ==========
-      res = await fetch('http://localhost:5003/api/auth/login', {
+      res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mobile: cleanMobile, password: cleanPassword }),

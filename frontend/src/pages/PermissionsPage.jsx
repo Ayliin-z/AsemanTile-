@@ -59,7 +59,7 @@ const PermissionsPage = () => {
   // بارگذاری نقش‌ها با fallback
   const loadRoles = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/employees/roles');
+      const res = await fetch('/api/employees/roles');
       if (res.ok) {
         const data = await res.json();
         if (data.success && data.data.length > 0) {
@@ -84,7 +84,7 @@ const PermissionsPage = () => {
   // بارگذاری تیم‌ها
   const loadTeams = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/employees/teams');
+      const res = await fetch('/api/employees/teams');
       const data = await res.json();
       if (data.success) setTeams(data.data);
     } catch (err) {
@@ -95,7 +95,7 @@ const PermissionsPage = () => {
   // بارگذاری کارمندان
   const loadEmployees = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/employees');
+      const res = await fetch('/api/employees');
       const data = await res.json();
       if (data.success) {
         setEmployees(data.data);
@@ -125,7 +125,7 @@ const PermissionsPage = () => {
   // بارگذاری اعضای تیم
   const loadTeamMembers = async (teamId) => {
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/teams/${teamId}`);
+      const res = await fetch(`/api/employees/teams/${teamId}`);
       const data = await res.json();
       if (data.success) {
         setTeamMembers(data.data.members || []);
@@ -209,7 +209,7 @@ const PermissionsPage = () => {
   const updateRolePermissions = async () => {
     if (!selectedRole) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/roles/${selectedRole.id}/permissions`, {
+      const res = await fetch(`/api/employees/roles/${selectedRole.id}/permissions`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ permissions: selectedRole.permissions })
@@ -235,7 +235,7 @@ const PermissionsPage = () => {
     console.log('💾 ذخیره دسترسی‌ها:', employeeCustomPermissions);
     
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/${selectedEmployeeForPerms.id}`, {
+      const res = await fetch(`/api/employees/${selectedEmployeeForPerms.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -261,7 +261,7 @@ const PermissionsPage = () => {
     if (!window.confirm(`آیا از حذف نقش "${selectedRole.name}" اطمینان دارید؟`)) return;
     
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/roles/${selectedRole.id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/employees/roles/${selectedRole.id}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         alert('نقش با موفقیت حذف شد');
@@ -284,7 +284,7 @@ const PermissionsPage = () => {
     }
     
     try {
-      const res = await fetch('http://localhost:5003/api/employees/roles', {
+      const res = await fetch('/api/employees/roles', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -315,7 +315,7 @@ const PermissionsPage = () => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5003/api/employees/teams', {
+      const res = await fetch('/api/employees/teams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(teamForm)
@@ -340,7 +340,7 @@ const PermissionsPage = () => {
     if (!window.confirm(`آیا از حذف تیم "${selectedTeam.name}" اطمینان دارید؟`)) return;
     
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/teams/${selectedTeam.id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/employees/teams/${selectedTeam.id}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         alert('تیم با موفقیت حذف شد');
@@ -368,7 +368,7 @@ const PermissionsPage = () => {
     }
     
     try {
-      const res = await fetch('http://localhost:5003/api/employees', {
+      const res = await fetch('/api/employees', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(employeeForm)
@@ -392,7 +392,7 @@ const PermissionsPage = () => {
   const addMemberToTeam = async (employeeId) => {
     if (!selectedTeamForMembers) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/teams/${selectedTeamForMembers.id}/members`, {
+      const res = await fetch(`/api/employees/teams/${selectedTeamForMembers.id}/members`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ employee_id: employeeId })
@@ -589,7 +589,7 @@ const PermissionsPage = () => {
                       <td style={{ padding: '12px 16px', textAlign: 'center' }}>
                         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                           <button onClick={() => openEmployeePermissions(emp)} style={{ background: '#1c7385', color: 'white', border: 'none', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer', fontSize: '12px' }}>✏️ ویرایش دسترسی</button>
-                          <button onClick={() => { if (window.confirm(`آیا از حذف "${emp.name}" اطمینان دارید؟`)) { fetch(`http://localhost:5003/api/employees/${emp.id}`, { method: 'DELETE' }).then(() => { alert('کارمند حذف شد'); loadAllData(); }).catch(err => alert('خطا در حذف: ' + err.message)); } }} style={{ background: '#a70023', color: 'white', border: 'none', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer', fontSize: '12px' }}>🗑️ حذف</button>
+                          <button onClick={() => { if (window.confirm(`آیا از حذف "${emp.name}" اطمینان دارید؟`)) { fetch(`/api/employees/${emp.id}`, { method: 'DELETE' }).then(() => { alert('کارمند حذف شد'); loadAllData(); }).catch(err => alert('خطا در حذف: ' + err.message)); } }} style={{ background: '#a70023', color: 'white', border: 'none', padding: '6px 14px', borderRadius: '20px', cursor: 'pointer', fontSize: '12px' }}>🗑️ حذف</button>
                         </div>
                       </td>
                     </tr>
@@ -673,7 +673,7 @@ const PermissionsPage = () => {
                     return (
                       <div key={member.id} className="team-member-card">
                         <div className="member-header"><div className="member-avatar">👤</div><div className="member-info"><strong>{member.name}</strong><span className="member-role">{member.role_name === 'supervisor' ? 'سرپرست' : 'کارشناس'}</span><span className="member-mobile">{member.mobile}</span></div>
-                          <button className="btn-remove-member" onClick={async () => { if (!window.confirm(`آیا از حذف "${member.name}" از تیم اطمینان دارید؟`)) return; try { const res = await fetch(`http://localhost:5003/api/employees/teams/${selectedTeam.id}/members/${member.id}`, { method: 'DELETE' }); const data = await res.json(); if (data.success) { alert('عضو با موفقیت از تیم حذف شد'); loadTeamMembers(selectedTeam.id); } else { alert('خطا: ' + data.error); } } catch (err) { alert('خطا در ارتباط با سرور'); } }}>✖</button>
+                          <button className="btn-remove-member" onClick={async () => { if (!window.confirm(`آیا از حذف "${member.name}" از تیم اطمینان دارید؟`)) return; try { const res = await fetch(`/api/employees/teams/${selectedTeam.id}/members/${member.id}`, { method: 'DELETE' }); const data = await res.json(); if (data.success) { alert('عضو با موفقیت از تیم حذف شد'); loadTeamMembers(selectedTeam.id); } else { alert('خطا: ' + data.error); } } catch (err) { alert('خطا در ارتباط با سرور'); } }}>✖</button>
                         </div>
                         <div className="member-permissions"><div className="permissions-header"><span>دسترسی‌ها:</span><button className="btn-edit-member-perms" onClick={() => openEmployeePermissions(member)}>✏️ ویرایش دسترسی‌ها</button></div>
                           <div className="permissions-tags">{finalPermissions.slice(0, 5).map(perm => { const permInfo = allPermissionsList.find(p => p.key === perm); const isFromRole = rolePermissions.includes(perm); const isAdded = customPermissions.includes(`+${perm}`); return (<span key={perm} className={`perm-tag ${isFromRole ? 'from-role' : ''} ${isAdded ? 'added' : ''}`}>{permInfo?.label || perm}{isFromRole && <small>(نقش)</small>}</span>); })}{finalPermissions.length > 5 && <span className="perm-tag more">+{finalPermissions.length - 5} مورد</span>}</div>
@@ -688,7 +688,7 @@ const PermissionsPage = () => {
             <div className="modal-footer">
               <button className="btn-delete" onClick={deleteTeam} style={{ background: '#a70023' }}>🗑️ حذف تیم</button>
               <button className="btn-cancel" onClick={() => setShowTeamDetailModal(false)}>انصراف</button>
-              <button className="btn-save" onClick={async () => { try { const res = await fetch(`http://localhost:5003/api/employees/teams/${selectedTeam.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: selectedTeam.name, description: selectedTeam.description, supervisor_id: selectedTeam.supervisor_id }) }); const data = await res.json(); if (data.success) { alert('تیم با موفقیت ویرایش شد'); loadAllData(); } else { alert('خطا: ' + data.error); } } catch (err) { alert('خطا در ارتباط با سرور'); } }}>💾 ذخیره تغییرات تیم</button>
+              <button className="btn-save" onClick={async () => { try { const res = await fetch(`/api/employees/teams/${selectedTeam.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: selectedTeam.name, description: selectedTeam.description, supervisor_id: selectedTeam.supervisor_id }) }); const data = await res.json(); if (data.success) { alert('تیم با موفقیت ویرایش شد'); loadAllData(); } else { alert('خطا: ' + data.error); } } catch (err) { alert('خطا در ارتباط با سرور'); } }}>💾 ذخیره تغییرات تیم</button>
             </div>
           </div>
         </div>

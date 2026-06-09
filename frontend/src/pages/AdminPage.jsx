@@ -105,7 +105,7 @@ const AdminPage = () => {
   const loadSupportAgents = async () => {
     setLoadingSupportAgents(true);
     try {
-      const res = await fetch('http://localhost:5003/api/experts/all');
+      const res = await fetch('/api/experts/all');
       const data = await res.json();
       if (data.success) {
         setSupportAgents(data.data);
@@ -359,7 +359,7 @@ const [supportFormData, setSupportFormData] = useState({
   const loadPartners = async () => {
     setLoadingPartners(true);
     try {
-      const res = await fetch('http://localhost:5003/api/partners/pending');
+      const res = await fetch('/api/partners/pending');
       const data = await res.json();
       if (data.success) {
         let partnersListData = data.data;
@@ -380,7 +380,7 @@ const [supportFormData, setSupportFormData] = useState({
   // Load stats from API
   const loadRegistrationStats = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/stats/registrations');
+      const res = await fetch('/api/stats/registrations');
       const result = await res.json();
       if (result.success) setRegistrationStats(result.data);
     } catch (error) {
@@ -391,7 +391,7 @@ const [supportFormData, setSupportFormData] = useState({
   const fetchCustomerQuotes = async (mobile) => {
     setLoadingQuotes(true);
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes`);
+      const res = await fetch(`/api/quotes`);
       const result = await res.json();
       if (result.success && Array.isArray(result.data)) {
         const filtered = result.data.filter(quote => quote.customer_mobile === mobile);
@@ -424,7 +424,7 @@ const [supportFormData, setSupportFormData] = useState({
     files.forEach(file => formData.append('images', file));
     
     try {
-      const response = await fetch('http://localhost:5003/api/upload', {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData
       });
@@ -454,7 +454,7 @@ const [supportFormData, setSupportFormData] = useState({
         setForm({ ...form, images: allImages.join(', ') });
         
         // پیش‌نمایش با مسیر کامل
-        const fullUrls = result.files.map(file => `http://localhost:5003/uploads/${file.filename}`);
+        const fullUrls = result.files.map(file => `/uploads/${file.filename}`);
         setImagePreviews(prev => [...prev, ...fullUrls]);
         
         alert(`${result.files.length} تصویر با موفقیت آپلود شد`);
@@ -502,7 +502,7 @@ const [supportFormData, setSupportFormData] = useState({
         title = 'گزارش فروش سال جاری';
       }
       
-      const res = await fetch(`http://localhost:5003/api/quotes?from_date=${fromDate}`);
+      const res = await fetch(`/api/quotes?from_date=${fromDate}`);
       const data = await res.json();
       
       if (data.success && Array.isArray(data.data)) {
@@ -517,7 +517,7 @@ const [supportFormData, setSupportFormData] = useState({
             
             if (order.partner_id) {
               try {
-                const partnerRes = await fetch(`http://localhost:5003/api/partners/${order.partner_id}`);
+                const partnerRes = await fetch(`/api/partners/${order.partner_id}`);
                 const partnerData = await partnerRes.json();
                 if (partnerData.success) {
                   customerName = partnerData.data.company_name || partnerData.data.user_name || 'همکار';
@@ -560,7 +560,7 @@ const [supportFormData, setSupportFormData] = useState({
 
   const loadQuoteStats = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/quotes');
+      const res = await fetch('/api/quotes');
       const result = await res.json();
       if (result.success && Array.isArray(result.data)) {
         const quotes = result.data;
@@ -590,7 +590,7 @@ const [supportFormData, setSupportFormData] = useState({
     setMonthlyStatsLoading(true);
     const fromDate = getFirstDayOfMonth();
     try {
-      const customersRes = await fetch(`http://localhost:5003/api/users?type=customer&from_date=${fromDate}`);
+      const customersRes = await fetch(`/api/users?type=customer&from_date=${fromDate}`);
       const customersData = await customersRes.json();
       if (Array.isArray(customersData)) {
         setMonthlyCustomerCount(customersData.length);
@@ -600,7 +600,7 @@ const [supportFormData, setSupportFormData] = useState({
         setMonthlyCustomerCount(0);
       }
 
-      const quotesRes = await fetch(`http://localhost:5003/api/quotes?from_date=${fromDate}`);
+      const quotesRes = await fetch(`/api/quotes?from_date=${fromDate}`);
       const quotesResult = await quotesRes.json();
       if (quotesResult.success && Array.isArray(quotesResult.data)) {
         let count = 0, total = 0;
@@ -739,7 +739,7 @@ useEffect(() => {
   
   const loadCustomersData = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/users');
+      const res = await fetch('/api/users');
       if (!res.ok) {
         const errorText = await res.text();
         console.error('خطا در دریافت مشتریان:', errorText);
@@ -767,7 +767,7 @@ useEffect(() => {
   const loadPriceRequests = async () => {
     setLoadingPriceRequests(true);
     try {
-      const res = await fetch('http://localhost:5003/api/price-requests');
+      const res = await fetch('/api/price-requests');
       const data = await res.json();
       if (data.success) setPriceRequests(data.data);
     } catch (err) { console.error(err); }
@@ -776,7 +776,7 @@ useEffect(() => {
 
   const loadExperts = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/experts/all');
+      const res = await fetch('/api/experts/all');
       const data = await res.json();
       if (data.success) setExperts(data.data);
     } catch (err) { console.error(err); }
@@ -797,7 +797,7 @@ useEffect(() => {
         last7Days.push(dateStr);
       }
       
-      const quotesRes = await fetch('http://localhost:5003/api/quotes');
+      const quotesRes = await fetch('/api/quotes');
       const quotesData = await quotesRes.json();
       
       if (quotesData.success && Array.isArray(quotesData.data)) {
@@ -848,7 +848,7 @@ useEffect(() => {
   // تابع دریافت سفارش‌ها با فیلتر وضعیت
   const loadOrderStatus = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/quotes');
+      const res = await fetch('/api/quotes');
       const data = await res.json();
       if (data.success && Array.isArray(data.data)) {
         setAllQuotes(data.data);
@@ -1065,12 +1065,12 @@ useEffect(() => {
     setLoading(true);
     try {
       // بارگذاری نقش‌ها
-      const rolesRes = await fetch('http://localhost:5003/api/employees/roles');
+      const rolesRes = await fetch('/api/employees/roles');
       const rolesData = await rolesRes.json();
       if (rolesData.success) setRoles(rolesData.data);
 
       // بارگذاری کارمندان (برای نمایش مدیران و سرپرستان)
-      const employeesRes = await fetch('http://localhost:5003/api/employees');
+      const employeesRes = await fetch('/api/employees');
       const employeesData = await employeesRes.json();
       if (employeesData.success) {
         const managersList = employeesData.data.filter(emp => emp.role_name === 'manager');
@@ -1081,7 +1081,7 @@ useEffect(() => {
       }
 
       // بارگذاری تیم‌ها
-      const teamsRes = await fetch('http://localhost:5003/api/employees/teams');
+      const teamsRes = await fetch('/api/employees/teams');
       const teamsData = await teamsRes.json();
       if (teamsData.success) setTeams(teamsData.data);
     } catch (err) {
@@ -1098,7 +1098,7 @@ useEffect(() => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5003/api/employees/teams', {
+      const res = await fetch('/api/employees/teams', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(teamForm)
@@ -1124,7 +1124,7 @@ useEffect(() => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5003/api/employees', {
+      const res = await fetch('/api/employees', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(employeeForm)
@@ -1147,7 +1147,7 @@ useEffect(() => {
   const deleteTeam = async (id) => {
     if (!window.confirm('آیا از حذف این تیم اطمینان دارید؟')) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/teams/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/employees/teams/${id}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         alert('تیم حذف شد');
@@ -1366,7 +1366,7 @@ useEffect(() => {
       const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0];
       
       // دریافت لیست همه کاربران
-      const res = await fetch('http://localhost:5003/api/users');
+      const res = await fetch('/api/users');
       const data = await res.json();
       
       let users = [];
@@ -1427,7 +1427,7 @@ useEffect(() => {
     setLoadingDashboard(true);
     try {
       // ۱. آمار فروش و سفارشات
-      const quotesRes = await fetch('http://localhost:5003/api/quotes');
+      const quotesRes = await fetch('/api/quotes');
       const quotesData = await quotesRes.json();
       
       if (quotesData.success && Array.isArray(quotesData.data)) {
@@ -1448,13 +1448,13 @@ useEffect(() => {
         const yearSales = yearQuotes.reduce((sum, q) => sum + (q.total_amount || 0), 0);
 
         // ۲. آمار مشتریان
-        const usersRes = await fetch('http://localhost:5003/api/users');
+        const usersRes = await fetch('/api/users');
         const usersData = await usersRes.json();
         const allUsers = Array.isArray(usersData) ? usersData : (usersData.data || []);
         const customers = allUsers.filter(u => u.type === 'customer');
 
         // ۳. آمار کارشناسان و کارمندان
-        const expertsRes = await fetch('http://localhost:5003/api/experts/all');
+        const expertsRes = await fetch('/api/experts/all');
         const expertsData = await expertsRes.json();
         const allExperts = expertsData.success ? expertsData.data : [];
         const activeExperts = allExperts.filter(e => e.is_active).length;
@@ -1496,7 +1496,7 @@ useEffect(() => {
   const loadAllQuotes = async () => {
     setLoadingAllQuotes(true);
     try {
-      let url = 'http://localhost:5003/api/quotes';
+      let url = '/api/quotes';
       if (quoteStatusFilter) url += `?status=${quoteStatusFilter}`;
       const res = await fetch(url);
       const data = await res.json();
@@ -1523,7 +1523,7 @@ useEffect(() => {
   const handleChangeQuoteStatus = async (quoteId, newStatus) => {
     if (!window.confirm(`آیا وضعیت به "${newStatus}" تغییر کند؟`)) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/quotes/${quoteId}/status`, {
+      const res = await fetch(`/api/quotes/${quoteId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -1759,7 +1759,7 @@ useEffect(() => {
     });
     if (product.images && product.images.length) {
       const existingPreviews = product.images.map(img => 
-        img.startsWith('http') ? img : `http://localhost:5003${img}`
+        img.startsWith('http') ? img : `${img}`
       );
       setImagePreviews(existingPreviews);
     } else {
@@ -1992,7 +1992,7 @@ useEffect(() => {
     formData.append('image', file);
     
     try {
-      const res = await fetch('http://localhost:5003/api/upload', {
+      const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData
       });
@@ -2001,7 +2001,7 @@ useEffect(() => {
       if (data.success && data.files && data.files.length > 0) {
         const logoPath = `/uploads/${data.files[0].filename}`;
         setBrandFormData({ ...brandFormData, logo: logoPath });
-        setBrandLogoPreview(`http://localhost:5003${logoPath}`);
+        setBrandLogoPreview(`${logoPath}`);
         alert('لوگو با موفقیت آپلود شد');
       } else {
         alert('خطا در آپلود لوگو');
@@ -2058,11 +2058,11 @@ useEffect(() => {
     }
 
     try {
-      let url = 'http://localhost:5003/api/brands';
+      let url = '/api/brands';
       let method = 'POST';
       
       if (editingBrandId) {
-        url = `http://localhost:5003/api/brands/${editingBrandId}`;
+        url = `/api/brands/${editingBrandId}`;
         method = 'PUT';
       }
       
@@ -2118,7 +2118,7 @@ useEffect(() => {
       enabled: brand.enabled === 1
     });
     if (brand.logo) {
-      setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `http://localhost:5003${brand.logo}`);
+      setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `${brand.logo}`);
     } else {
       setBrandLogoPreview('');
     }
@@ -2378,16 +2378,16 @@ useEffect(() => {
       
       // اگر با uploads شروع می‌شود (بدون slash)
       if (img.startsWith('uploads/')) {
-        return `http://localhost:5003/${img}`;
+        return `/${img}`;
       }
       
       // اگر با /uploads شروع می‌شود
       if (img.startsWith('/uploads/')) {
-        return `http://localhost:5003${img}`;
+        return `${img}`;
       }
       
       // اگر فقط نام فایل است
-      return `http://localhost:5003/uploads/${img}`;
+      return `/uploads/${img}`;
     }
     
     // تصویر پیش‌فرض
@@ -2944,7 +2944,7 @@ useEffect(() => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                         {brand.logo ? (
                           <img 
-                            src={brand.logo.startsWith('http') ? brand.logo : `http://localhost:5003${brand.logo}`} 
+                            src={brand.logo.startsWith('http') ? brand.logo : `${brand.logo}`} 
                             alt={brand.name}
                             style={{ width: 44, height: 44, objectFit: 'cover', borderRadius: 10, background: '#f8f9fa', border: '1px solid #e9ecef' }}
                             onError={(e) => { e.target.style.display = 'none' }}
@@ -2988,7 +2988,7 @@ useEffect(() => {
                             enabled: brand.enabled === 1
                           });
                           if (brand.logo) {
-                            setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `http://localhost:5003${brand.logo}`);
+                            setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `${brand.logo}`);
                           } else {
                             setBrandLogoPreview('');
                           }
@@ -3222,7 +3222,7 @@ useEffect(() => {
       alert('لطفاً متنی را که می‌خواهید لینک شود، انتخاب کنید.');
       return;
     }
-    const url = prompt('آدرس کامل مقاله وبلاگ را وارد کنید (مثال: http://localhost:5003/blog/راهنمای-خرید):');
+    const url = prompt('آدرس کامل مقاله وبلاگ را وارد کنید (مثال: /blog/راهنمای-خرید):');
     if (!url) return;
     const linkHtml = `<a href="${url}" target="_blank">${selectedText}</a>`;
     const newDescription = templateForm.description.substring(0, start) + linkHtml + templateForm.description.substring(end);
@@ -3313,7 +3313,7 @@ useEffect(() => {
     const handleInitialApprove = async (id) => {
       if (window.confirm('آیا از تأیید اولیه این همکار اطمینان دارید؟ با تأیید اولیه، پنل همکار باز می‌شود اما امکان ثبت سفارش ندارد.')) {
         try {
-          const res = await fetch(`http://localhost:5003/api/partners/${id}/initial-approve`, {
+          const res = await fetch(`/api/partners/${id}/initial-approve`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' }
           });
@@ -3334,7 +3334,7 @@ useEffect(() => {
     const handleFinalApprove = async (id) => {
       if (window.confirm('آیا از تأیید نهایی این همکار اطمینان دارید؟ پس از تأیید، همکار می‌تواند سفارش ثبت کند.')) {
         try {
-          const res = await fetch(`http://localhost:5003/api/partners/${id}/final-approve`, {
+          const res = await fetch(`/api/partners/${id}/final-approve`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ admin_notes: partnerAdminNote })
@@ -3357,7 +3357,7 @@ useEffect(() => {
     const handleReject = async (id) => {
       if (window.confirm('آیا از رد این درخواست اطمینان دارید؟')) {
         try {
-          const res = await fetch(`http://localhost:5003/api/partners/${id}/reject`, {
+          const res = await fetch(`/api/partners/${id}/reject`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' }
           });
@@ -3384,7 +3384,7 @@ useEffect(() => {
       files.forEach(file => formData.append('documents', file));
       
       try {
-        const res = await fetch('http://localhost:5003/api/upload/documents', {
+        const res = await fetch('/api/upload/documents', {
           method: 'POST',
           body: formData
         });
@@ -3602,7 +3602,7 @@ useEffect(() => {
                       }}>
                         <span>📄 {file.originalName || file.filename}</span>
                         <a 
-                          href={`http://localhost:5003${file.path}`} 
+                          href={`${file.path}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           style={{ color: '#1c7385', textDecoration: 'none' }}
@@ -3810,7 +3810,7 @@ useEffect(() => {
     // دریافت جزئیات یک مشتری
   const fetchCustomerDetails = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5003/api/users/${id}`);
+      const res = await fetch(`/api/users/${id}`);
       const data = await res.json();
       setSelectedCustomer(data);
       setShowCustomerModal(true);
@@ -3823,7 +3823,7 @@ useEffect(() => {
   const handleChangeCustomerType = async (id, newType) => {
     if (window.confirm(`آیا می‌خواهید نوع این کاربر به "${newType === 'partner' ? 'همکار' : 'مشتری عادی'}" تغییر یابد؟`)) {
       try {
-        const res = await fetch(`http://localhost:5003/api/users/${id}`, {
+        const res = await fetch(`/api/users/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: newType }),
@@ -3846,7 +3846,7 @@ useEffect(() => {
     const action = newStatus ? 'فعال' : 'مسدود';
     if (window.confirm(`آیا می‌خواهید این کاربر را ${action} کنید؟`)) {
       try {
-        const res = await fetch(`http://localhost:5003/api/users/${id}`, {
+        const res = await fetch(`/api/users/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ is_active: newStatus }),
@@ -3871,7 +3871,7 @@ useEffect(() => {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5003/api/users', {
+      const res = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, mobile, email: email || undefined, password, type }),
@@ -3895,7 +3895,7 @@ useEffect(() => {
     const handleDeleteCustomer = async (id, name) => {
       if (window.confirm(`آیا از حذف "${name}" اطمینان دارید؟`)) {
         try {
-          const res = await fetch(`http://localhost:5003/api/users/${id}`, {
+          const res = await fetch(`/api/users/${id}`, {
             method: 'DELETE'
           });
           if (res.ok) {
@@ -4300,7 +4300,7 @@ useEffect(() => {
   const handleAddExpert = async () => {
     if (!expertForm.name || !expertForm.phone) { alert('نام و شماره تماس الزامی است'); return; }
     try {
-      const res = await fetch('http://localhost:5003/api/experts', {
+      const res = await fetch('/api/experts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(expertForm)
@@ -4314,7 +4314,7 @@ useEffect(() => {
   const handleUpdateExpert = async () => {
     if (!editingExpertId) return;
     try {
-      const res = await fetch(`http://localhost:5003/api/experts/${editingExpertId}`, {
+      const res = await fetch(`/api/experts/${editingExpertId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(expertForm)
@@ -4330,7 +4330,7 @@ useEffect(() => {
 
   const handleDeleteExpert = async (id) => {
     if (window.confirm('حذف این کارشناس؟')) {
-      try { await fetch(`http://localhost:5003/api/experts/${id}`, { method: 'DELETE' }); loadExperts(); }
+      try { await fetch(`/api/experts/${id}`, { method: 'DELETE' }); loadExperts(); }
       catch (err) { console.error(err); }
     }
   };
@@ -4572,13 +4572,13 @@ useEffect(() => {
       try {
         let res;
         if (editingSupportId) {
-          res = await fetch(`http://localhost:5003/api/experts/${editingSupportId}`, {
+          res = await fetch(`/api/experts/${editingSupportId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(supportFormData)
           });
         } else {
-          res = await fetch('http://localhost:5003/api/experts', {
+          res = await fetch('/api/experts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(supportFormData)
@@ -4604,7 +4604,7 @@ useEffect(() => {
     const handleDelete = async (id) => {
       if (window.confirm('آیا از حذف این پشتیبان اطمینان دارید؟')) {
         try {
-          const res = await fetch(`http://localhost:5003/api/experts/${id}`, { method: 'DELETE' });
+          const res = await fetch(`/api/experts/${id}`, { method: 'DELETE' });
           const data = await res.json();
           if (data.success) {
             alert('پشتیبان با موفقیت حذف شد');
@@ -4634,7 +4634,7 @@ useEffect(() => {
 
     const toggleStatus = async (id, currentStatus) => {
       try {
-        const res = await fetch(`http://localhost:5003/api/experts/${id}`, {
+        const res = await fetch(`/api/experts/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ is_active: currentStatus ? 0 : 1 })
@@ -5062,7 +5062,7 @@ useEffect(() => {
 
   const loadRoles = async () => {
     try {
-      const res = await fetch('http://localhost:5003/api/employees/roles');
+      const res = await fetch('/api/employees/roles');
       const data = await res.json();
       if (data.success) setRoles(data.data);
     } catch (err) {
@@ -5072,7 +5072,7 @@ useEffect(() => {
 
   const updateRolePermissions = async (roleId, permissions) => {
     try {
-      const res = await fetch(`http://localhost:5003/api/employees/roles/${roleId}/permissions`, {
+      const res = await fetch(`/api/employees/roles/${roleId}/permissions`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ permissions })
@@ -5105,7 +5105,7 @@ useEffect(() => {
       enabled: brand.enabled === 1
     });
     if (brand.logo) {
-      setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `http://localhost:5003${brand.logo}`);
+      setBrandLogoPreview(brand.logo.startsWith('http') ? brand.logo : `${brand.logo}`);
     } else {
       setBrandLogoPreview('');
     }

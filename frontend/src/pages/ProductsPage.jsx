@@ -45,7 +45,7 @@ const ProductsPage = () => {
       const encodedName = encodeURIComponent(manufacturerParam);
       console.log('Fetching brand info for:', manufacturerParam);
       
-      fetch(`http://localhost:5003/api/brands/name/${encodedName}`)
+      fetch(`/api/brands/name/${encodedName}`)
         .then(res => {
           console.log('Response status:', res.status);
           if (!res.ok) {
@@ -156,9 +156,9 @@ const ProductsPage = () => {
       // اگر آدرس کامل است
       if (img && img.startsWith('http')) return img;
       // اگر با /uploads شروع می‌شود
-      if (img && img.startsWith('/uploads')) return `http://localhost:5003${img}`;
+      if (img && img.startsWith('/uploads')) return `${img}`;
       // اگر فقط نام فایل است
-      if (img) return `http://localhost:5003/uploads/${img}`;
+      if (img) return `/uploads/${img}`;
     }
     // تصویر پیش‌فرض
     return '/images/placeholder.jpg';

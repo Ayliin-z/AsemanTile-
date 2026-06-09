@@ -8,7 +8,7 @@ const ContactRequests = () => {
   const loadContactRequests = async () => {
     setLoadingContact(true);
     try {
-      const res = await fetch('http://localhost:5003/api/contact');
+      const res = await fetch('/api/contact');
       const data = await res.json();
       if (data.success) {
         setContactRequests(data.data);

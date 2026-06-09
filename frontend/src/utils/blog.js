@@ -79,7 +79,7 @@ export const deleteBlogPost = async (id) => {
 // toggleHomepageDisplay - نسخه اصلاح شده
 export const toggleHomepageDisplay = async (id, showOnHomepage) => {
   try {
-    const response = await fetch(`http://localhost:5003/api/blog/${id}`, {
+    const response = await fetch(`/api/blog/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
