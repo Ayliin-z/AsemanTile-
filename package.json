@@ -1,7 +1,12 @@
 {
   "name": "aseman-tile",
   "version": "1.0.0",
+  "description": "فروشگاه کاشی و سرامیک آسمان",
+  "main": "backend/server-mysql.cjs",
   "scripts": {
-    "start": "cd backend && npm start"
-  }
+    "start": "node backend/server-mysql.cjs",
+    "postinstall": "cd backend && npm install"
+  },
+  "author": "",
+  "license": "ISC"
 }
