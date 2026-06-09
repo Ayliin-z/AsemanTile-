@@ -1,5 +1,6 @@
 // backend/server-mysql.cjs
 const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
 const mysql = require('mysql2');
 const multer = require('multer');
@@ -20,13 +21,11 @@ const pool = mysql.createPool({
   host: 'app-mysql-k6xwa',
   user: 'basic',
   password: 'iJg_dmInZnw9Uq9WNLE3',
-  database: 'asemantiledb
-',
+  database: 'asemantiledb',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
-
 
 const promisePool = pool.promise();
 
@@ -35,6 +34,20 @@ pool.getConnection((err, connection) => {
   else {
     console.log('✅ متصل به MySQL شد');
     connection.release();
+  }
+});
+
+const path = require('path');
+
+// سرو کردن فایل‌های استاتیک React (بعد از build)
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// برای مسیرهایی که API نیستند، index.html برگردان
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    next();
+  } else {
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
   }
 });
 

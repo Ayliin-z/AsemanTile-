@@ -5,6 +5,9 @@
   "main": "backend/server-mysql.cjs",
   "scripts": {
     "start": "node backend/server-mysql.cjs",
-    "postinstall": "cd backend && npm install"
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
   }
 }
