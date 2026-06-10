@@ -7,6 +7,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+
 // ========== Create App ==========
 const app = express();
 const PORT = process.env.PORT || 5003;
@@ -570,6 +571,17 @@ employeesRouter.delete('/:id', async (req, res) => {
 // اعمال employees router
 app.use('/api/employees', employeesRouter);
 console.log('✅ Employees API loaded (with Teams)');
+
+// ==== سرویس فایل‌های استاتیک React (Frontend) ====
+app.use(express.static(path.join(__dirname, '../frontend'))); // به مسیر پوشه فایل‌های build شده اشاره می‌کند
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    next();
+  } else {
+    res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+  }
+});
+// =================================================
 // ========== PRODUCTS ==========
 // GET all products
 app.get('/api/products', async (req, res) => {
